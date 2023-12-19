@@ -1,0 +1,225 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .listStyle{
+    list-style:none;
+    }
+    .bottom-info{
+    float:left;
+    margin-top:50px ;
+     margin-left:100px;
+     font-family:'Crimson Text', serif
+    }
+    .info{
+    margin-top:0px ;
+    }
+    .under-info{
+    float:left;
+    margin-left:20px;
+    }
+    /* Add this CSS to your stylesheet or in a style tag in the head of your HTML file */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+}
+
+
+</style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/elevatezoom/3.0.8/jquery.elevateZoom.min.js"></script>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:-25px;">
+        <img src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
+        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/" >GEAR CORP ARTS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+</nav>
+
+<div class="container mt-5" style="margin-bottom:50px">
+    <div class="row">
+        <div class="col-md-6" >
+            <img src="{{ product.image.url }}" class="img-fluid " style="width: 60%; height: 450px;" alt="{{ product.name }}" data-toggle="model" data-target="#fullImageModal">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            <p><strong>Price:</strong> ₹{{ product.price }}</p>
+
+            {% if user.is_authenticated %}
+                    <button class="btn btn-primary add-to-cart-btn update-cart" data-product="{{ product.id }}" data-action="add">
+                         <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    {% else %}
+                    <button class="btn btn-primary add-to-cart-btn" data-product="{{ product.id }}" data-action="add" onclick="redirectToLogin()">
+                         <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    {% endif %}
+                         <script>
+
+                              function redirectToLogin() {
+                                        window.location.href = '/login'; // Change the URL to your login page
+                              }
+
+                            // Add an event listener to the image
+                            document.querySelector('.img-fluid').addEventListener('click', function() {
+                          // Trigger the modal when the image is clicked
+                             $('#fullImageModal').modal('show');
+                              });
+
+
+
+                         </script>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="fullImageModal" tabindex="-1" role="dialog" aria-labelledby="fullImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Add a close button (cross symbol) -->
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Display the larger image here with an ID -->
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" id="zoomedImage">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:50px; height:50px">
+
+
+    </nav>
+
+     <div style="margin-top:60px ; margin-left: -110px; margin-right:-70px; margin-bottom:20px">
+         <hr>
+        <div style="height: 200px margin-top:50px ;margin-bottom:250px">
+            <div class="bottom-info">
+                <label style="font-size:16px"><strong>For Buyers</strong></label>
+
+                <ui>
+                    <li class="listStyle">Art Prints</li>
+                    <li class="listStyle">Gift Card</li>
+                    <li class="listStyle">Commissions</li>
+                    <li class="listStyle">Buyer FAQ</li>
+                </ui>
+
+            </div>
+            <div class="bottom-info">
+                <label style="font-size:16px"><strong>About Us</strong></label>
+
+                <ui>
+                    <li class="listStyle">Art Prints</li>
+                    <li class="listStyle">Gift Card</li>
+                    <li class="listStyle">Commissions</li>
+                    <li class="listStyle">Buyer FAQ</li>
+                </ui>
+
+            </div>
+            <div class="bottom-info">
+                <label style="font-size:16px"><strong>Top Categories</strong></label>
+
+                <ui>
+                    <li class="listStyle">Art Prints</li>
+                    <li class="listStyle">Gift Card</li>
+                    <li class="listStyle">Commissions</li>
+                    <li class="listStyle">Buyer FAQ</li>
+                </ui>
+
+            </div>
+            <div class="bottom-info">
+                <label style="font-size:16px"><strong>About Us</strong></label>
+
+                <ui>
+                    <li class="listStyle">Art Prints</li>
+                    <li class="listStyle">Gift Card</li>
+                    <li class="listStyle">Commissions</li>
+                    <li class="listStyle">Buyer FAQ</li>
+                </ui>
+
+            </div>
+            <div class="bottom-info">
+                <label style="font-size:16px"><strong>About Us</strong></label>
+
+                <ui>
+                    <li class="listStyle">Art Prints</li>
+                    <li class="listStyle">Gift Card</li>
+                    <li class="listStyle">Commissions</li>
+                    <li class="listStyle">Buyer FAQ</li>
+                </ui>
+
+            </div>
+        </div>
+
+         <div style="font-family:'Crimson Text', serif;margin-left:100px; margin-right:300px; width:95%; height:50px">
+                <div style="float:left;box-shadow:hsl(0,0,0) 0 0 0px;width:50%">
+
+                    <div style="float:left">
+                     <h2><strong>Gear Corp</strong></h2>
+                   </div>
+                    <div style="margin-top:10px;float:left;margin-left:20px">
+                    <img  src="{% static 'images/india.png' %}" alt='This is website logo' width="30" height="20" style="margin-right: 20px">
+                    <a style="margin-left:-12px;">India</a>
+                    </div>
+                </div>
+                <div style="float:left;box-shadow:hsl(0,0%,0%) 0 0 0px;width:50%;justify-content: end;">
+                    <div style="float:left;margin-left:300px;">
+                     <img  src="{% static 'images/facebook.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
+                    </div>
+                    <div style="float:left;">
+                     <img  src="{% static 'images/twitter.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
+                    </div>
+                    <div style="float:left">
+                     <img  src="{% static 'images/insta.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
+                    </div>
+                    <div style="float:left">
+                     <img  src="{% static 'images/youtube.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
+                    </div>
+
+                </div>
+         </div>
+
+     </div>
+
+
+{% endblock content %}

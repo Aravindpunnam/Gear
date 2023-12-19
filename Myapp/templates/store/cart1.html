@@ -1,0 +1,76 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:-25px;">
+        <img src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
+        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/" >GEAR CORP ARTS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+</nav>
+
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
+       <div class="cart-page" style="width:100%; margin-top: 20px" >
+
+
+         <div class="cart-image" style="float: left ; background-color: #fff; box-shadow:hsl(0,0%,80%) 0 0 16px; margin-left:40px;">
+            <div style="margin-top:20px; margin-left:20px; margin-right:20px; margin-bottom:20px">
+                    <div>
+                         <a style="font-size:25px"><strong>Cart</strong></a>
+                        <a style="float: right;" class="btn btn-outline-dark " href="{% url 'store' %}">Continue Shopping</a>
+                    </div>
+
+
+                    {% for item in items %}
+                    <div style="height:225px ">
+                      <hr>
+                        <div class="image" >
+                              <img src="{{ item.product.image.url}}" style=" width: 120px; height:200px">
+                        </div>
+                        <div class="name">
+                          <div>
+                             <p style="line-height: 1; box-sizing: border-box;">
+                                  <span style="font-size: 20px;">{{ item.product.name}}</span><br>
+                                  <span style="font-size: 14px;">{{ item.product.category}}</span>
+
+                             </p>
+                          </div>
+                           <p>
+                              <a><strong>Price</strong></a>
+                              <a style="margin-left:200px"><strong>₹{{ item.product.price }}</strong></a>
+                           </p>
+
+                             <img data-product={{item.product.id}} data-action="remove" class="chg-quantity update-cart im" src="{% static 'images/cancel.png' %}"
+							         style="width: 15px;" title="Remove From The Cart">
+                        </div>
+                    </div>
+             {% endfor %}
+
+            </div>
+
+         </div>
+
+
+
+
+         <div class="summary" style=" background-color: #fff; box-shadow:hsl(0,0%,80%) 0 0 16px; float: left; margin-left : 30px; width: 30%; margin-top: 2px;  border-radius: 4px;">
+            <div style="margin-left:20px; margin-right:20px; margin-top:20px; margin-bottom:100px">
+               <div class="amount">
+                   <p class="Total">
+                       <span><strong>Estimation Total</strong> </span>
+                       <span style="float: right;"><strong>₹{{ order.get_cart_total }}</strong></span>
+                   </p>
+               </div>
+                <div>
+                     <a  style="float:right;  width : 100%" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+                </div>
+            </div>
+         </div>
+       </div>
+
+
+{% endblock content %}
+

@@ -11,6 +11,7 @@ urlpatterns=[
     path('register',views.register, name='register'),
     path('update_item/',views.updateItem, name='update_item'),
     path('product_detail/<int:product_id>/',views.product_detail, name='product_detail'),
+    path('myorders', views.myorders, name='myorders'),
 
     path('photography/', views.category_view, {'category': 'Photography'}, name='photography'),
     path('paintings/', views.category_view, {'category': 'Painting'}, name='paintings'),

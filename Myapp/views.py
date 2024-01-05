@@ -173,3 +173,7 @@ def product_detail(request, product_id):
     product = Product.objects.get(id=product_id)
 
     return render(request, 'store/product_detail.html', {'product' : product})
+
+def myorders(request):
+    return render(request, 'store/orders.html')
+

@@ -41,7 +41,7 @@
         <!-- <a class="navbar-brand" href="/login">Log In</a>
         <a class="navbar-brand" href="/register">Register</a> -->
         {% if user.is_authenticated %}
-        <a class="navbar-brand" style="margin-top: -25px; margin-right: 900px; color: #7c795d; font-family: 'Trocchi', serif; font-size: 30px;">Hi, {{user.first_name}} </a>
+        <a class="navbar-brand" style="margin-top: -25px; margin-right: 900px; color: #7c795d; font-family: 'Trocchi', serif; font-size: 30px;">Hi, {{user.username}} </a>
        <div style=" margin-right:30px ; margin-top:-5px">
         <ul  style="list-style: none;">
 
@@ -78,7 +78,7 @@
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px;">
         <img  src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
-        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/" >GEAR CORP ARTS</a>
+        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/" >CHAITHANYA ARTS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

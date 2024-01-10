@@ -87,6 +87,8 @@
      </div>
 
 	<script type="text/javascript">
+	var shipping = '{{order.shipping}}'
+	var total = '{{ order.get_cart_total }}'
     var form = document.getElementById('form');
 
     form.addEventListener('submit', function(e) {
@@ -97,6 +99,57 @@
         // Show the payment information section after submitting the shipping information form
         document.getElementById('payment-info').style.display = 'block';
     });
+
+    document.getElementById('make-payment').addEventListener('click', function(e){
+    	submitFormData()
+    })
+
+    function submitFormData(){
+    	console.log('payment button clicked')
+    	var shippingInfo = {
+			'address' : null,
+			'city' : null,
+			'state' : null,
+			'zipcode' : null,
+			'country' : null,
+			'phone' : null,
+			'total' : total
+    	}
+
+    	if (shipping != 'False'){
+    		shippingInfo.address = form.address.value
+    		shippingInfo.city = form.city.value
+    		shippingInfo.state = form.state.value
+    		shippingInfo.zipcode = form.zipcode.value
+    		shippingInfo.country = form.country.value
+    		shippingInfo.phone = form.phone.value
+    	}
+    	console.log('shippingInfo: ' ,shippingInfo)
+
+    	var url = "/processorder/";
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify({'shipping': shippingInfo}),
+})
+.then((response) => response.json())
+.then((data) => {
+    console.log('Success:', data);
+    alert('Transaction completed');
+
+
+    window.location.href = "{% url 'store' %}";
+})
+.catch((error) => {
+    console.error('Error:', error);
+});
+
+
+    }
+
 </script>
 
 

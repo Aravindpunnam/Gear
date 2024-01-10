@@ -1,7 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:-25px;">
+    <img src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
+    <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/">GEAR CORP ARTS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
 
-<body>
-   <h5>This is Orders file</h5>
-</body>
-</html>
+<div class="cart-image" style="width:80%;float: left ; background-color: #fff; box-shadow:hsl(0,0%,80%) 0 0 16px; margin-left:40px; margin-top:25px;">
+    <div style="margin-top:20px; margin-left:20px; margin-right:20px; margin-bottom:20px">
+        <div>
+            <a style="font-size:25px"><strong>Hello, {{ user.username }}</strong></a> <br>
+            <a style="font-size:25px"><strong>Your Orders</strong></a>
+        </div>
+
+        {% for order_detail in order_details %}
+        <hr>
+            <div style="margin-bottom: 20px;">
+                <!--
+                <h3>Order ID: {{ order_detail.order_id }}</h3>
+                <p>Date Ordered: {{ order_detail.date_ordered }}</p>
+                -->
+
+                <h5>Order Items:</h5>
+                <ul style="list-style-type:none;">
+                    {% for item in order_detail.items %}
+                        <li>
+                            <img src="{{ item.image }}" alt="{{ item.name }}" style="max-width: 80px; max-height: 80px;">
+                            {{ item.name }} - {{ item.category }} - ₹{{ item.price }}
+                        </li>
+                        <br>
+
+                        {% if forloop.last %}
+                            <h5>Shipping Address:</h5>
+                            {% if order_detail.items.0.shipping_address %}
+                                <div>
+                                    <a>Address: {{ order_detail.items.0.shipping_address.address }},</a>
+                                    <a>City: {{ order_detail.items.0.shipping_address.city }},</a>
+                                    <a>State: {{ order_detail.items.0.shipping_address.state }},</a>
+                                    <a>Zipcode: {{ order_detail.items.0.shipping_address.zipcode }},</a>
+                                    <a>Country: {{ order_detail.items.0.shipping_address.country }},</a>
+                                    <a>Phone: {{ order_detail.items.0.shipping_address.phone }}</a>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

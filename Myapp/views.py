@@ -180,7 +180,7 @@ def product_detail(request, product_id):
     return render(request, 'store/product_detail.html', {'product' : product})
 
 def processOrder(request):
-    print('data:', request.body)
+    #print('data:', request.body)
     data=json.loads(request.body)
     transaction_id = datetime.datetime.now().timestamp()
 

@@ -16,9 +16,9 @@ urlpatterns=[
     path('search/', views.search_view, name='search'),
 
 
-    path('photography/', views.category_view, {'category': 'Photography'}, name='photography'),
-    path('paintings/', views.category_view, {'category': 'Painting'}, name='paintings'),
-    path('drawing/', views.category_view, {'category': 'Drawing'}, name='drawing'),
-    path('sculpture/', views.category_view, {'category': 'Sculpture'}, name='sculpture'),
-    path('mixed-media/', views.category_view, {'category': 'Mixed Media'}, name='mixed_media'),
+    path('photography', views.category_view, {'category': 'Photography'}, name='photography'),
+    path('paintings', views.category_view, {'category': 'Painting'}, name='paintings'),
+    path('drawing', views.category_view, {'category': 'Drawing'}, name='drawing'),
+    path('sculpture', views.category_view, {'category': 'Sculpture'}, name='sculpture'),
+    path('mixed-media', views.category_view, {'category': 'Mixed Media'}, name='mixed_media'),
 ]

@@ -12,6 +12,8 @@ from .form import ShippingAddressForm
 
 import datetime
 
+from django.db.models import Q
+
 def store(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -313,3 +315,15 @@ def completed_orders(request):
         return render(request, 'store/orders.html', context)
     else:
         return render(request, 'store/error_page.html', {'error_message': 'User not logged in'})
+
+
+
+def search_view(request):
+    query = request.GET.get('q', '')
+
+    # Use Q objects to perform a case-insensitive search on both name and category
+    search_results = Product.objects.filter(
+        Q(name__icontains=query) | Q(category__icontains=query)
+    )
+
+    return render(request, 'store/search_results.html', {'query': query, 'search_results': search_results})

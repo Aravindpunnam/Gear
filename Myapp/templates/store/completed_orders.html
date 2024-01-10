@@ -1,0 +1,35 @@
+<!-- completed_orders.html -->
+{% extends 'store/main.html' %}
+{% block content %}
+    <h1>Completed Orders</h1>
+
+    {% for order_detail in order_details %}
+        <div style="margin-bottom: 20px;">
+            <p>Date Ordered: {{ order_detail.date_ordered }}</p>
+            <p>Customer: {{ order_detail.customer_name }}</p>
+
+            <h3>Order Items:</h3>
+            <ul>
+                {% for item in order_detail.items %}
+                    <li>
+                        {{ item.name }} - {{ item.category }} - ₹{{ item.price }}
+                        <img src="{{ item.image }}" alt="{{ item.name }}" style="max-width: 50px; max-height: 50px;">
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <h3>Shipping Address:</h3>
+            {% if order_detail.shipping_address %}
+                <p>Address: {{ order_detail.shipping_address.address }}</p>
+                <p>City: {{ order_detail.shipping_address.city }}</p>
+                <p>State: {{ order_detail.shipping_address.state }}</p>
+                <p>Zipcode: {{ order_detail.shipping_address.zipcode }}</p>
+                <p>Country: {{ order_detail.shipping_address.country }}</p>
+                <p>Phone: {{ order_detail.shipping_address.phone }}</p>
+                <hr>
+            {% else %}
+                <p>No Shipping Address Available</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock content %}

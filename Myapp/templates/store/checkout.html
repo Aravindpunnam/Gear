@@ -1,154 +1,140 @@
 {% extends 'store/main.html' %}
 {% load static %}
+
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:-25px;">
-        <img src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
-        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/" >CHAITANYA ARTS </a>
-	    <a style="color:white" class="active" href="/"><i class="fa fa-home"></i></a>
-</nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:-25px;">
+        <img src="{% static 'images/logo.jpg' %}" alt='This is the website logo' width="50" height="33" style="margin-right: 20px">
+        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/">CHAITANYA ARTS </a>
+        <a style="color:white" class="active" href="/"><i class="fa fa-home"></i></a>
+    </nav>
 
+    <div class="row">
+        <div class="col-log-6" style="margin-top: 30px;width:50%">
+            <div class="box-elements" id="from-wrapper" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; background-color: #fff; border-radius: 4px; padding: 10px;">
+                <form id="form">
+                    <div id="user-info">
+                        <span><strong>Total Items In your Cart</strong> </span>
+                        <span style="float: right;"><strong>{{ order.get_cart_items }}  </strong></span>
+                    </div>
+                    <div id="shipping-info">
+                        <hr>
+                        <p><strong>Shipping Information:</strong></p>
+                        <hr>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input required class="form-control" type="text" name="name" placeholder="Name..">
+                        </div>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input required class="form-control" type="email" name="email" placeholder="Email..">
+                        </div>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input class="form-control" type="text" name="address" placeholder="Address..">
+                        </div>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input class="form-control" type="text" name="city" placeholder="City..">
+                        </div>
+                        <br>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input class="form-control" type="text" name="state" placeholder="State..">
+                        </div>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+                        </div>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input class="form-control" type="text" name="country" placeholder="country">
+                        </div>
+                        <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
+                            <input class="form-control" type="text" name="phone" placeholder="phone">
+                        </div>
+                    </div>
+                    <hr>
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                </form>
+            </div>
 
-     <div class="row">
-          <div class="col-log-6" style="margin-top: 30px;width:50%">
-               <div class="box-elements" id="from-wrapper" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; background-color: #fff; border-radius: 4px; padding: 10px;">
-                    <form id="form">
-                         <div id="user-info">
-							 <span><strong>Total Items In your Cart</strong> </span>
-                             <span style="float: right;"><strong>{{ order.get_cart_items }}  </strong></span>
+            <br>
 
-                         </div>
-                         <div id="shipping-info">
-                              <hr>
-								<p><strong>Shipping Information:</strong></p>
-							  <hr>
-							  <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-							       <input required class="form-control" type="text" name="name" placeholder="Name..">
-						      </div>
-						      <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-							       <input required class="form-control" type="email" name="email" placeholder="Email..">
-						      </div>
-								<div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-									<input class="form-control" type="text" name="address" placeholder="Address..">
-								</div>
-								<div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-									<input class="form-control" type="text" name="city" placeholder="City..">
-								</div>
-							   <br>
-								<div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-									<input class="form-control" type="text" name="state" placeholder="State..">
-								</div>
-								<div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-									<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-								</div>
-								<div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-									<input class="form-control" type="text" name="country" placeholder="country">
-								</div>
-							    <div class="form-field" style="width:250px; display: inline-block; padding: 5px;">
-									<input class="form-control" type="text" name="phone" placeholder="phone">
-								</div>
+            <div class="box-element hidden" id="payment-info" style="display: none!important; box-shadow:hsl(0, 0%, 80%) 0 0 16px; background-color: #fff; border-radius: 4px; padding: 10px;">
+                <a><strong>Payment Method</strong></a>
+                <button id="make-payment">Make payment</button>
+            </div>
+        </div>
 
-                         </div>
+        <div class="col-log-6" style="margin-top: 30px; margin-left: 50px;margin-bottom:50px ;width:  35%">
+            <div class="box-elements" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; background-color: #fff; border-radius: 4px; padding: 10px;">
+                <a  class="btn btn-outline-dark" href="{% url 'cart' %}"> Back to Cart</a>
+                <hr>
+                <a style="font-size:20px"><strong>Order Summary </strong></a>
+                <hr>
+                {% for item in items %}
+                    <div class="cart-row" style="display: flex; align-items: flex-stretch; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #ececec;">
+                        <div style="flex:2"><img class="row-image" src="{{ item.product.image.url}}" style="width: 50px;"></div>
+                        <div style="flex:2">{{ item.product.name }}</div>
+                        <div style="flex:1">₹{{ item.product.price }}</div> <br>
+                    </div>
+                {% endfor %}
+                <span><strong>Estimation Total</strong> </span>
+                <span style="float: right;"><strong>₹{{ order.get_cart_total }}</strong></span>
+            </div>
+        </div>
+    </div>
 
-                         <hr>
-                         <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+    <script type="text/javascript">
+        var shipping = '{{order.shipping}}'
+        var total = '{{ order.get_cart_total }}'
+        var form = document.getElementById('form');
 
-                    </form>
-               </div>
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted...');
 
-			  <br>
-				<div class="box-element hidden" id="payment-info" style="display: none!important; box-shadow:hsl(0, 0%, 80%) 0 0 16px; background-color: #fff; border-radius: 4px; padding: 10px;">
-					<a><strong>Payment Method</strong></a>
-					<button id="make-payment">Make payment</button>
-				</div>
+            // Show the payment information section after submitting the shipping information form
+            document.getElementById('payment-info').style.display = 'block';
+        });
 
-          </div>
+        document.getElementById('make-payment').addEventListener('click', function(e){
+            submitFormData()
+        })
 
-          <div class="col-log-6" style="margin-top: 30px; margin-left: 50px;margin-bottom:50px ;width:  35%">
-               <div class="box-elements" style="box-shadow:hsl(0, 0%, 80%) 0 0 16px; background-color: #fff; border-radius: 4px; padding: 10px;">
-				   <a  class="btn btn-outline-dark" href="{% url 'cart' %}"> Back to Cart</a>
-					<hr>
-				   <a style="font-size:20px"><strong>Order Summary </strong></a>
-					<hr>
-				   {% for item in items %}
-					<div class="cart-row" style="display: flex; align-items: flex-stretch; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid #ececec;">
-						<div style="flex:2"><img class="row-image" src="{{ item.product.image.url}}" style="width: 50px;"></div>
-						<div style="flex:2">{{ item.product.name }}</div>
-						<div style="flex:1">₹{{ item.product.price }}</div> <br>
-					</div>
-				   {% endfor %}
+        function submitFormData(){
+            console.log('payment button clicked')
+            var shippingInfo = {
+                'address' : null,
+                'city' : null,
+                'state' : null,
+                'zipcode' : null,
+                'country' : null,
+                'phone' : null,
+                'total' : total
+            }
 
-					<span><strong>Estimation Total</strong> </span>
-                       <span style="float: right;"><strong>₹{{ order.get_cart_total }}</strong></span>
-               </div>
-          </div>
-     </div>
+            if (shipping != 'False'){
+                shippingInfo.address = form.address.value
+                shippingInfo.city = form.city.value
+                shippingInfo.state = form.state.value
+                shippingInfo.zipcode = form.zipcode.value
+                shippingInfo.country = form.country.value
+                shippingInfo.phone = form.phone.value
+            }
+            console.log('shippingInfo: ' ,shippingInfo)
 
-	<script type="text/javascript">
-	var shipping = '{{order.shipping}}'
-	var total = '{{ order.get_cart_total }}'
-    var form = document.getElementById('form');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        console.log('Form submitted...');
-
-
-        // Show the payment information section after submitting the shipping information form
-        document.getElementById('payment-info').style.display = 'block';
-    });
-
-    document.getElementById('make-payment').addEventListener('click', function(e){
-    	submitFormData()
-    })
-
-    function submitFormData(){
-    	console.log('payment button clicked')
-    	var shippingInfo = {
-			'address' : null,
-			'city' : null,
-			'state' : null,
-			'zipcode' : null,
-			'country' : null,
-			'phone' : null,
-			'total' : total
-    	}
-
-    	if (shipping != 'False'){
-    		shippingInfo.address = form.address.value
-    		shippingInfo.city = form.city.value
-    		shippingInfo.state = form.state.value
-    		shippingInfo.zipcode = form.zipcode.value
-    		shippingInfo.country = form.country.value
-    		shippingInfo.phone = form.phone.value
-    	}
-    	console.log('shippingInfo: ' ,shippingInfo)
-
-    	var url = "/processorder/";
-fetch(url, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({'shipping': shippingInfo}),
-})
-.then((response) => response.json())
-.then((data) => {
-    console.log('Success:', data);
-    alert('Transaction completed');
-
-
-    window.location.href = "{% url 'store' %}";
-})
-.catch((error) => {
-    console.error('Error:', error);
-});
-
-
-    }
-
-</script>
-
-
+            var url = "/processorder/";
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({'shipping': shippingInfo}),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                alert('Transaction completed');
+                window.location.href = "{% url 'store' %}";
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 {% endblock content %}
-

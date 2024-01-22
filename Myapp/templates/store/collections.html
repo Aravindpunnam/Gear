@@ -1,0 +1,26 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+<!-- Your existing content -->
+{% block content %}
+<div class="row" style="margin-top: 10px; margin-bottom: 80px;">
+    {% for product in favorite_products %}
+        <div class="col-lg-4" style="padding: 5px; margin-bottom: 0px;">
+            <!-- Display product details as needed -->
+            <a href="{% url 'product_detail' product.id %}">
+                <img class="thumbnail" style="width: 80%; height: 350px;" src="{{ product.image.url }} ">
+            </a>
+            <div class="box-element product new" style="padding: 10px; border-radius: 4px; width: 80%; ">
+                <p style="margin: 0; font-size: 18px; line-height: 1; box-sizing: border-box;">
+                    <strong>{{ product.name }}</strong><br>
+                    <span style="font-size: 14px;">{{ product.category }}</span>
+                </p>
+                <!-- Add other product details as needed -->
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Your existing content -->
+
+{% endblock content %}

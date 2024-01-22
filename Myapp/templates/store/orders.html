@@ -19,8 +19,11 @@
             <div style="margin-bottom: 20px;">
                 <!--
                 <h3>Order ID: {{ order_detail.order_id }}</h3>
-                <p>Date Ordered: {{ order_detail.date_ordered }}</p>
                 -->
+                <!-- <p>Date Ordered: {{ order_detail.date_ordered }}</p>
+                <p>Date Ordered: {{ order_detail.date_ordered|date:"F d, Y" }}</p>  -->
+                <p>Date Ordered: {{ order_detail.date_ordered|date:"M d, Y" }}</p>
+
 
                 <h5>Order Items:</h5>
                 <ul style="list-style-type:none;">

@@ -42,7 +42,7 @@
         <a class="navbar-brand" href="/register">Register</a> -->
         {% if user.is_authenticated %}
         <a class="navbar-brand" style="margin-top: -25px; margin-right: 900px; color: #7c795d; font-family: 'Trocchi', serif; font-size: 30px;">Hi, {{user.username}} </a>
-       <div style=" margin-right:30px ; margin-top:-5px">
+       <div style=" margin-right:10px ; margin-top:-5px">
         <ul  style="list-style: none;">
 
                 <li class="nav-item dropdown">
@@ -58,6 +58,12 @@
 
             </ul>
            </div>
+           <div style=" margin-right:40px ; margin-top:-16px">
+               <a href="/add_to_collections">
+                    <i class="fas fa-heart favorite-icon dark" style="font-size: 24px; color: black; "></i>
+               </a>
+
+           </div>
         {% else %}
         <div class="form-group" style="margin-left: 1px; margin-right: 15px;">
                 <button type="submit" onclick="location.href='/login'">Log In</button>
@@ -68,10 +74,11 @@
         {% endif %}
 
         <div>
+
          <a href="/cart" class="cart-link">
+
         <i class="fas fa-shopping-cart cart-icon"></i>
          </a>
-
         <p id="cart-total" style="background-color: red; border-radius: 70%; width: 20px; margin-top: -25px;
 	                      height: 20px; font-size: 14px; text-align: center;">{{cartItems}}</p>
         </div>
@@ -121,32 +128,61 @@
                </a>
                 <div class="box-element product new " style="padding: 10px; border-radius: 4px; width: 80%; ">
                     <p style="margin: 0; font-size: 18px; line-height: 1; box-sizing: border-box;">
-                        <strong>{{ product.name }}</strong><br>
-                        <span style="font-size: 14px;">{{ product.category }}</span>
+                        <strong style="font-size: 24px;">{{ product.name }} </strong>
+                        <strong style="float: right;">₹{{product.price}}</strong> <br>
+                        <span style="font-size: 16px;">{{ product.category }}</span>
                     </p>
                         <br>
                     {% if user.is_authenticated %}
                     <button class="btn btn-primary add-to-cart-btn update-cart" data-product="{{ product.id }}" data-action="add">
                          <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
+                       <button class="btn btn-primary add-btn add-to-cart-btn" onclick="addToCollection({{ product.id }})">
+                        <i class="fas fa-heart favorite-icon"></i>
+                        <span>Add to Favorites</span>
+                    </button>
                     {% else %}
                     <button class="btn btn-primary add-to-cart-btn" data-product="{{ product.id }}" data-action="add" onclick="redirectToLogin()">
                          <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
+                       <button class="btn btn-primary add-btn add-to-cart-btn" onclick="redirectToLogin()">
+                        <i class="fas fa-heart favorite-icon"></i>
+                        <span>Add to Favorites</span>
+                    </button>
                     {% endif %}
                          <script>
+    function redirectToLogin() {
+        window.location.href = '/login'; // Change the URL to your login page
+    }
 
-                              function redirectToLogin() {
-                              window.location.href = '/login'; // Change the URL to your login page
-                              }
-                         </script>
-                    <button  class="btn btn-outline-secondary add-btn">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                              <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                         </svg>
-                    </button>
+    function addToCollection(productId) {
+    // Make an AJAX request to add the product to the collection
+    $.ajax({
+        type: "POST",
+        url: "/add_to_collections/",
+        data: {
+            'product_id': productId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (response) {
+            // Handle success, if needed
+            console.log(response);
+            // Redirect to the collection page after successful addition
+            window.location.href = '/collection';
+        },
+        error: function (error) {
+            // Handle error, if needed
+            console.log(error);
+        }
+    });
+}
 
-                    <h4 style="display: inline-block; float: right; font-size: 16px"><strong>₹{{product.price}}</strong></h4>
+</script>
+
+
+
+
+                    <!-- <h4 style="display: inline-block; float: right; font-size: 16px"><strong>₹{{product.price}}</strong></h4>   -->
 
 		        </div>
 

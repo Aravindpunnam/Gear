@@ -327,3 +327,47 @@ def search_view(request):
     )
 
     return render(request, 'store/search_results.html', {'query': query, 'search_results': search_results})
+
+'''
+def add_to_collections(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+    else:
+        items = []
+        order = {'get_cart_items': 0, 'get_cart_total': 0}
+        cartItems = order['get_cart_items']
+
+
+    context = {'cartItems': cartItems}
+
+    #product = Product.objects.get()
+
+    return render(request, 'store/collections.html')
+'''
+
+def add_to_collections(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        favorites = request.session.get('favorites', [])
+
+        if product_id and product_id not in favorites:
+            favorites.append(product_id)
+            request.session['favorites'] = favorites
+            request.session.save()
+
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error'})
+
+def collection(request):
+    favorites = request.session.get('favorites', [])
+    favorite_products = Product.objects.filter(pk__in=favorites)
+
+    context = {
+        'favorite_products': favorite_products,
+    }
+
+    return render(request, 'store/collections.html', context)

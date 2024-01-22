@@ -14,6 +14,8 @@ urlpatterns=[
     path('processorder/', views.processOrder, name='processorder'),
     path('myorders', views.completed_orders, name='processorder'),
     path('search/', views.search_view, name='search'),
+    path('add_to_collections', views.add_to_collections, name='add_to_collections'),
+    path('collection/', views.collection, name='collection'),
 
 
     path('photography', views.category_view, {'category': 'Photography'}, name='photography'),

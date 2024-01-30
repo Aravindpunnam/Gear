@@ -31,3 +31,7 @@ justifyContent="right"
 	font-size: 14px;
 }
 
+.row {
+    margin:auto;
+}
+

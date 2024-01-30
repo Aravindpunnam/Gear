@@ -1,19 +1,24 @@
 {% extends 'store/main.html' %}
 {% load static %}
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:-25px;">
+<style>
+    .row{
+        margin:auto;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <img src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
-    <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/">CHAITANYA ARTS </a>
+     <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/">CHAITANYA ARTS </a>
      <a style="color:white" class="active" href="/"><i class="fa fa-home"></i></a>
     <div style="margin-left:700px">
-    <form class="form-inline my-2 my-lg-0"  action="{% url 'search' %}" method="get">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-        </div>
+        <form class="form-inline my-2 my-lg-0"  action="{% url 'search' %}" method="get">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
 </nav>
 
-{% if search_results %}
+    {% if search_results %}
         <div class="row" style="margin-top: 10px; margin-bottom: 80px">
             {% for product in search_results %}
                 <div class="col-lg-4" style="padding: 5px; margin-bottom: 0px;">
@@ -22,28 +27,28 @@
                     </a>
                     <div class="box-element product new " style="padding: 10px; border-radius: 4px; width: 80%;">
                         <p style="margin: 0; font-size: 18px; line-height: 1; box-sizing: border-box;">
-                        <strong style="font-size: 24px;">{{ product.name }} </strong>
-                        <strong style="float: right;">₹{{product.price}}</strong> <br>
-                        <span style="font-size: 16px;">{{ product.category }}</span>
-                    </p>
+                            <strong style="font-size: 24px;">{{ product.name }} </strong>
+                            <strong style="float: right;">₹{{product.price}}</strong> <br>
+                            <span style="font-size: 16px;">{{ product.category }}</span>
+                        </p>
                         <br>
                         {% if user.is_authenticated %}
-                    <button class="btn btn-primary add-to-cart-btn update-cart" data-product="{{ product.id }}" data-action="add">
-                         <i class="fas fa-shopping-cart"></i> Add to Cart
-                    </button>
-                       <button class="btn btn-primary add-btn add-to-cart-btn" onclick="addToCollection({{ product.id }})">
-                        <i class="fas fa-heart favorite-icon"></i>
-                        <span>Add to Favorites</span>
-                    </button>
-                    {% else %}
-                    <button class="btn btn-primary add-to-cart-btn" data-product="{{ product.id }}" data-action="add" onclick="redirectToLogin()">
-                         <i class="fas fa-shopping-cart"></i> Add to Cart
-                    </button>
-                       <button class="btn btn-primary add-btn add-to-cart-btn" onclick="redirectToLogin()">
-                        <i class="fas fa-heart favorite-icon"></i>
-                        <span>Add to Favorites</span>
-                    </button>
-                    {% endif %}
+                        <button class="btn btn-primary add-to-cart-btn update-cart" data-product="{{ product.id }}" data-action="add">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-primary add-btn add-to-cart-btn" onclick="addToCollection({{ product.id }})">
+                            <i class="fas fa-heart favorite-icon"></i>
+                            <span>Add to Favorites</span>
+                        </button>
+                        {% else %}
+                        <button class="btn btn-primary add-to-cart-btn" data-product="{{ product.id }}" data-action="add" onclick="redirectToLogin()">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-primary add-btn add-to-cart-btn" onclick="redirectToLogin()">
+                            <i class="fas fa-heart favorite-icon"></i>
+                            <span>Add to Favorites</span>
+                        </button>
+                        {% endif %}
                         <script>
                             function redirectToLogin() {
                                 window.location.href = '/login'; // Change the URL to your login page

@@ -2,6 +2,42 @@
 {% load static %}
 {% block content %}
 <style>
+    .row {
+        margin : auto;
+    }
+
+    .row-prod{
+        margin-top:10px;
+    }
+    .your-account{
+
+        margin-top:-1px;
+    }
+
+    .favorite{
+        margin-right:15px;
+        font-size: 20px;
+    }
+
+    .cart-icon{
+        margin-top:7px;
+        font-size: 20px;
+    }
+
+    .total{
+        margin-top:8px;
+        background-color: red;
+        border-radius: 50%;
+
+    }
+
+    .total.cart-count {
+        width: 10px;
+        height: 15px;
+        font-size: 10px;
+        text-align: center;
+    }
+
     .listStyle{
     list-style:none;
     }
@@ -32,278 +68,397 @@
         color: #333; /* Text color */
     }
 
+    .nav-item button {
+        font-family: 'Trocchi', serif;
+        color:black;
+        font-size: 20px;
+
+    }
+
+
+
+
+    footer {
+    padding:20px;
+    width: 100%;
+    margin-top:25px
+    }
+
+    * {
+    box-sizing: border-box;
+}
+
+    footer.foot{
+        background-color: #666;
+        padding-left:60px;
+    }
+
+    footer.foot {
+        color:black;
+        font-size:20px;
+        color: #fff;
+    }
+
+    footer.foot ul{
+        list-style: none;
+        text-align: left;
+        padding-left: 0px;
+    }
+
+    footer.foot ul li{
+        color: #fff;
+        line-height:1.5;
+    }
+    footer.icon-foot.icons {
+        margin-top:20px
+        margin-left:20px
+    }
+
+    .fab{
+        margin-left:15px;
+    }
+
+     .facebook-icon {
+            color: #1877f2; /* Facebook blue color */
+        }
+
+      .twitter-icon {
+            color: #1da1f2;
+        }
+
+        /* YouTube icon with red color */
+        .youtube-icon {
+            color: #ff0000;
+        }
+
+        /* WhatsApp icon with green color */
+        .whatsapp-icon {
+            color: #25d366;
+        }
+
+        /* Instagram icon with purple color */
+        .instagram-icon {
+            color: #bc2a8d;
+        }
+
     .dropdown-item:hover {
         background-color: #f8f9fa; /* Hover background color */
     }
+    .box-element{
+        padding: 2px;
+        border-radius: 4px;
+    }
+
+    .details{
+         margin-top:0px;
+    }
+
+    .name-cat-col{
+        padding-left:1px
+    }
+
+    .name-cat-row{
+         margin-top:0px;
+    }
+
+    .name-col{
+        padding-left:1px;
+    }
+
+    .price-col{
+        padding-right:1px;
+    }
+
+    .price{
+        float: right;
+    }
+
+    .box-element button{
+            width:100%;
+        }
+
+    .butt{
+        padding : 1px
+    }
+
+    @media(max-width:400px) {
+        .form-control{
+            width:73%;
+            margin-right:5px;
+        }
+
+        .box-element button{
+            width:100%;
+        }
+
+        .name-cat-col{
+            margin-top:1px;
+        }
+
+        .but-row{
+            margin-top:0px;
+        }
+
+        .butt{
+            margin-top: 1px;
+        }
+
+
+        .price-col{
+            padding-left:1px;
+            margin-top:0px;
+        }
+
+        .price{
+        float: left;
+    }
+
+    }
 </style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="justify-content: end;  height: 100%; margin-bottom: -20px; margin-right: -112px; margin-left: -112px;margin-top:-25px;">
 
-        <!-- <a class="navbar-brand" href="/login">Log In</a>
-        <a class="navbar-brand" href="/register">Register</a> -->
-        {% if user.is_authenticated %}
-        <a class="navbar-brand" style="margin-top: -25px; margin-right: 900px; color: #7c795d; font-family: 'Trocchi', serif; font-size: 30px;">Hi, {{user.username}} </a>
-       <div style=" margin-right:10px ; margin-top:-5px">
-        <ul  style="list-style: none;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {% if user.is_authenticated %}
+        <a class="navbar-brand" style="font-family: 'Trocchi', serif; font-size: 20px;">Hi, {{user.username}} </a>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size:15px; color:black">
-                        <strong>Your Account</strong>
-                    </a>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/myorders">My Orders</a>
-                <a class="dropdown-item" href="/logout">Log out</a>
-                </div>
-                </li>
-
-            </ul>
-           </div>
-           <div style=" margin-right:40px ; margin-top:-16px">
-               <a href="/add_to_collections">
-                    <i class="fas fa-heart favorite-icon dark" style="font-size: 24px; color: black; "></i>
-               </a>
-
-           </div>
-        {% else %}
-        <div class="form-group" style="margin-left: 1px; margin-right: 15px;">
-                <button type="submit" onclick="location.href='/login'">Log In</button>
-            </div>
-        <div class="form-group" style="margin-left: 1px; margin-right: 35px;">
-                <button type="submit" onclick="location.href='/register'">Register</button>
-            </div>
-        {% endif %}
-
-        <div>
-
-         <a href="/cart" class="cart-link">
-
-        <i class="fas fa-shopping-cart cart-icon"></i>
-         </a>
-        <p id="cart-total" style="background-color: red; border-radius: 70%; width: 20px; margin-top: -25px;
-	                      height: 20px; font-size: 14px; text-align: center;">{{cartItems}}</p>
-        </div>
-</nav>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px;">
-        <img  src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 20px">
-        <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/" >CHAITANYA ARTS </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 200px">
-            <a data-gtm-event="nav header" data-type="main-link" href="/" style="margin-right: 20px">All</a>
-            <a data-gtm-event="nav header" data-type="main-link" href="/paintings" style="margin-right: 20px">Painting</a>
-            <a data-gtm-event="nav header" data-type="main-link" href="/photography" style="margin-right: 20px">Photography</a>
-            <a data-gtm-event="nav header" data-type="main-link" href="/drawing" style="margin-right: 20px">Drawing</a>
-            <a data-gtm-event="nav header" data-type="main-link" href="/sculpture" style="margin-right: 20px">Sculpture</a>
-            <a data-gtm-event="nav header" data-type="main-link" href="/mixed-media" style="margin-right: 20px">Mixed Media</a>
-
-            <ul class="navbar-nav mr-auto">
-
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle your-account" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <strong>Your Account</strong>
                     </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/myorders">My Orders</a>
+                        <a class="dropdown-item" href="/logout">Log out</a>
+                    </div>
                 </li>
-
+                <li class="nav-item">
+                    <a href="/add_to_collections" class="nav-link">
+                        <i class="fas fa-heart favorite-icon dark favorite"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/cart" class="nav-link">
+                        <i class="fas fa-shopping-cart cart-icon"></i>
+                        <span id="cart-total" class="total " style="width: 12px; height: 15px; font-size: 10px; text-align: center;">{{cartItems}}</span>
+                    </a>
+                </li>
             </ul>
-            <!-- main.html -->
-
-                <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-
         </div>
+    {% else %}
+        <a class="navbar-brand" style="font-family: 'Trocchi', serif; font-size: 20px;">Welcome Guest</a>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button class="btn btn-link" onclick="location.href='/login'">Log In</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-link" onclick="location.href='/register'">Register</button>
+            </li>
+        </ul>
+    {% endif %}
 </nav>
 
-     <div class="row" style="margin-top:10px margin-bottom:80px">
-          {% for product in products %}
-           <div class="col-lg-4" style="padding: 5px; margin-bottom: 0px;">
-               <a href="{% url 'product_detail' product.id %}">
-                    <img class="thumbnail" style="width: 80%; height: 350px;" src="{{ product.image.url }} ">
-               </a>
-                <div class="box-element product new " style="padding: 10px; border-radius: 4px; width: 80%; ">
-                    <p style="margin: 0; font-size: 18px; line-height: 1; box-sizing: border-box;">
-                        <strong style="font-size: 24px;">{{ product.name }} </strong>
-                        <strong style="float: right;">₹{{product.price}}</strong> <br>
-                        <span style="font-size: 16px;">{{ product.category }}</span>
-                    </p>
-                        <br>
-                    {% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img src="{% static 'images/logo.jpg' %}" alt='This is website logo' width="50" height="33" style="margin-right: 8px">
+    <a class="navbar-brand" style="font-family: 'Trocchi', serif;" href="/">CHAITANYA ARTS </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong style="font-family: 'Trocchi', serif; color:white">Categories</strong>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/" style="margin-right: 20px">All</a>
+                    <a class="dropdown-item" href="/paintings" style="margin-right: 20px">Painting</a>
+                    <a class="dropdown-item" href="/photography" style="margin-right: 20px">Photography</a>
+                    <a class="dropdown-item" href="/drawing" style="margin-right: 20px">Drawing</a>
+                    <a class="dropdown-item" href="/sculpture" style="margin-right: 20px">Sculpture</a>
+                    <a class="dropdown-item" href="/mixed-media" style="margin-right: 20px">Mixed Media</a>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                </div>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="row row-prod">
+    {% for product in products %}
+    <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <a href="{% url 'product_detail' product.id %}">
+            <img class="thumbnail" style="width: 90%; height: 300px; object-fit: cover;" src="{{ product.image.url }} ">
+        </a>
+        <div class="box-element product new" style="width:90%">
+            <div class="row details">
+                <div class="col-lg-6 col-sm-12 name-cat-col">
+                    <div class="row name-cat-row">
+                        <div class="col-12 name-col">
+                            <strong>{{ product.name }}</strong>
+                        </div>
+                        <div class="col-12 name-col">
+                            <span>{{ product.category }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 price-col">
+                    <strong class="price">₹{{ product.price }}</strong>
+                </div>
+
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="row but-row">
+                <div class="col-lg-6 col-sm-12 butt">
                     <button class="btn btn-primary add-to-cart-btn update-cart" data-product="{{ product.id }}" data-action="add">
-                         <i class="fas fa-shopping-cart"></i> Add to Cart
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
-                       <button class="btn btn-primary add-btn add-to-cart-btn" onclick="addToCollection({{ product.id }})">
+                </div>
+                <div class="col-lg-6 col-sm-12  butt">
+                    <button class="btn btn-primary add-btn add-to-cart-btn" onclick="addToCollection({{ product.id }})">
                         <i class="fas fa-heart favorite-icon"></i>
                         <span>Add to Favorites</span>
                     </button>
-                    {% else %}
+                </div>
+            </div>
+            {% else %}
+            <div class="row but-row">
+                <div class="col-6 butt">
                     <button class="btn btn-primary add-to-cart-btn" data-product="{{ product.id }}" data-action="add" onclick="redirectToLogin()">
-                         <i class="fas fa-shopping-cart"></i> Add to Cart
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
-                       <button class="btn btn-primary add-btn add-to-cart-btn" onclick="redirectToLogin()">
+                </div>
+                <div class="col-6 butt">
+                    <button class="btn btn-primary add-btn add-to-cart-btn" onclick="redirectToLogin()">
                         <i class="fas fa-heart favorite-icon"></i>
                         <span>Add to Favorites</span>
                     </button>
-                    {% endif %}
-                         <script>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
     function redirectToLogin() {
         window.location.href = '/login'; // Change the URL to your login page
     }
 
     function addToCollection(productId) {
-    // Make an AJAX request to add the product to the collection
-    $.ajax({
-        type: "POST",
-        url: "/add_to_collections/",
-        data: {
-            'product_id': productId,
-            'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function (response) {
-            // Handle success, if needed
-            console.log(response);
-            // Redirect to the collection page after successful addition
-            window.location.href = '/collection';
-        },
-        error: function (error) {
-            // Handle error, if needed
-            console.log(error);
-        }
-    });
-}
-
+        // Make an AJAX request to add the product to the collection
+        $.ajax({
+            type: "POST",
+            url: "/add_to_collections/",
+            data: {
+                'product_id': productId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (response) {
+                // Handle success, if needed
+                console.log(response);
+                // Redirect to the collection page after a successful addition
+                window.location.href = '/collection';
+            },
+            error: function (error) {
+                // Handle error, if needed
+                console.log(error);
+            }
+        });
+    }
 </script>
 
-
-
-
-                    <!-- <h4 style="display: inline-block; float: right; font-size: 16px"><strong>₹{{product.price}}</strong></h4>   -->
-
-		        </div>
-
-           </div>
-          {% endfor %}
-     </div>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-left:-112px;margin-right:-112px; margin-top:50px; height:50px">
-
-
-    </nav>
-
-     <div style="margin-top:60px ; margin-left: -110px; margin-right:-70px; margin-bottom:20px">
-         <hr>
-        <div style="height: 200px margin-top:50px ;margin-bottom:250px">
-            <div class="bottom-info">
-                <label style="font-size:16px"><strong>For Buyers</strong></label>
-
-                <ui>
+    <footer class="foot">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <label style="font-size:16px color:#fff"><strong>About Us</strong></label>
+                <ul>
                     <li class="listStyle">Art Prints</li>
                     <li class="listStyle">Gift Card</li>
                     <li class="listStyle">Commissions</li>
                     <li class="listStyle">Buyer FAQ</li>
-                </ui>
+                </ul>
 
             </div>
-            <div class="bottom-info">
-                <label style="font-size:16px"><strong>About Us</strong></label>
-
-                <ui>
+            <div class="col-lg-3 col-6">
+                <label style="font-size:16px color:#fff"><strong>About Us</strong></label>
+                <ul>
                     <li class="listStyle">Art Prints</li>
                     <li class="listStyle">Gift Card</li>
                     <li class="listStyle">Commissions</li>
                     <li class="listStyle">Buyer FAQ</li>
-                </ui>
+                </ul>
 
             </div>
-            <div class="bottom-info">
-                <label style="font-size:16px"><strong>Top Categories</strong></label>
-
-                <ui>
+            <div class="col-lg-3 col-6">
+                <label style="font-size:16px color:#fff"><strong>About Us</strong></label>
+                <ul>
                     <li class="listStyle">Art Prints</li>
                     <li class="listStyle">Gift Card</li>
                     <li class="listStyle">Commissions</li>
                     <li class="listStyle">Buyer FAQ</li>
-                </ui>
+                </ul>
 
             </div>
-            <div class="bottom-info">
-                <label style="font-size:16px"><strong>About Us</strong></label>
-
-                <ui>
+            <div class="col-lg-3 col-6">
+                <label style="font-size:16px color:#fff"><strong>About Us</strong></label>
+                <ul>
                     <li class="listStyle">Art Prints</li>
                     <li class="listStyle">Gift Card</li>
                     <li class="listStyle">Commissions</li>
                     <li class="listStyle">Buyer FAQ</li>
-                </ui>
-
-            </div>
-            <div class="bottom-info">
-                <label style="font-size:16px"><strong>About Us</strong></label>
-
-                <ui>
-                    <li class="listStyle">Art Prints</li>
-                    <li class="listStyle">Gift Card</li>
-                    <li class="listStyle">Commissions</li>
-                    <li class="listStyle">Buyer FAQ</li>
-                </ui>
-
-            </div>
-            <div class="bottom-info">
-                <label style="font-size:16px"><strong>About Us</strong></label>
-
-                <ui>
-                    <li class="listStyle">Art Prints</li>
-                    <li class="listStyle">Gift Card</li>
-                    <li class="listStyle">Commissions</li>
-                    <li class="listStyle">Buyer FAQ</li>
-                </ui>
+                </ul>
 
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-4">
 
-         <div style="font-family:'Crimson Text', serif;margin-left:100px; margin-right:300px; width:95%; height:50px">
-                <div style="float:left;box-shadow:hsl(0,0,0) 0 0 0px;width:50%">
+                        <h2><strong>Gear Corp</strong></h2>
 
-                    <div style="float:left">
-                     <h2><strong>Gear Corp</strong></h2>
-                   </div>
-                    <div style="margin-top:10px;float:left;margin-left:20px">
+
                     <img  src="{% static 'images/india.png' %}" alt='This is website logo' width="30" height="20" style="margin-right: 20px">
                     <a style="margin-left:-12px;">India</a>
-                    </div>
-                </div>
-                <div style="float:left;box-shadow:hsl(0,0%,0%) 0 0 0px;width:50%;justify-content: end;">
-                    <div style="float:left;margin-left:300px;">
-                        <a href="https://www.facebook.com/">
-                            <img  src="{% static 'images/facebook.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
-                        </a>
-                    </div>
-                    <div style="float:left;">
-                        <a href="https://twitter.com/i/flow/login">
-                            <img  src="{% static 'images/twitter.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
-                        </a>
-                    </div>
-                    <div style="float:left">
-                        <a href="https://www.instagram.com/">
-                            <img  src="{% static 'images/insta.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
-                        </a>
-                    </div>
-                    <div style="float:left">
-                        <a href="https://www.youtube.com/">
-                            <img  src="{% static 'images/youtube.png' %}" alt='This is website logo' width="20" height="20" style="margin-right: 20px">
-                        </a>
-                    </div>
 
-                </div>
-         </div>
 
-     </div>
 
+            </div>
+            <div class="col=sm-12 col-lg-8 icon-foot" style="margin:auto">
+
+                <a href="https://www.facebook.com/">
+                    <i class="fab fa-facebook facebook-icon icons"></i>
+                </a>
+                <a href="https://twitter.com/">
+                    <i class="fab fa-twitter twitter-icon icons"></i>
+                </a>
+                <a href="https://www.youtube.com/">
+                    <i class="fab fa-youtube youtube-icon icons"></i>
+                </a>
+                <a href="https://www.whatsapp.com/">
+                    <i class="fab fa-whatsapp whatsapp-icon icons"></i>
+                </a>
+                <a href="https://www.instagram.com/">
+                    <i class="fab fa-instagram instagram-icon icons"></i>
+                </a>
+
+            </div>
+
+        </div>
+    </footer>
 
 
 {% endblock content %}
